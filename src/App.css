@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+  height: 100vh;
+}
+
+.clock-side{
+  z-index: 200;
+  border: solid black 2px;
+  height: 25vh;
+}
