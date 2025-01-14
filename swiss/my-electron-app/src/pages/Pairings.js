@@ -43,10 +43,6 @@ let tournamentDetails = location.state?.tournamentDetails || []
     //currentBoard.result = result;
   };
 
-  useEffect(()=>{
-    console.log(tournamentDetails);
-    
-  },[])
 
   return (
     <div>
@@ -125,7 +121,7 @@ let tournamentDetails = location.state?.tournamentDetails || []
       </section>
      <RankingTable caption="Initial Ranking" players={players}/>
 
-    <PairingTable/>
+    <PairingTable pairings={pairings} heading="Round 1 pairing"/>
     </div>
   );
 };
