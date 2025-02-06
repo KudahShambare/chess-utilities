@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+
+#age-checkbox{
+  display: inline;
+  border: #282c34 solid 2px;
+  padding: 2%;
+
+}

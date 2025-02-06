@@ -7,16 +7,17 @@ const AddPlayers = () => {
 
   const formData = location.state?.formData;
   const [tournamentDetails, setTournamentDetails] = useState(formData);
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState([]); //all players array
   const [player, setPlayer] = useState({
     playerName: "",
     playerRating: "",
     fideID: "",
     province: "",
-    points: 0,
+    points: 0, //keeping trackof player results
+    opponents: [], //keeping track of a player's opponents
+    roundsPlayed: 0, //keeping track of number of rounds a player has been paired
     fideTitle: "",
-    groups: [],
-    ageGroups: [],
+    ageGroups: [], // age group or Ladies/Open
   });
 
   const handleChange = (e) => {
@@ -36,7 +37,12 @@ const AddPlayers = () => {
 
   const handleAddPlayer = (e) => {
     e.preventDefault();
-    if (!player.playerName || !player.playerRating || !player.fideID || !player.province) {
+    if (
+      !player.playerName ||
+      !player.playerRating ||
+      !player.fideID ||
+      !player.province
+    ) {
       alert("Please fill out all required fields before adding a player.");
       return;
     }
@@ -48,13 +54,16 @@ const AddPlayers = () => {
       province: "",
       points: 0,
       fideTitle: "",
-      groups: [],
       ageGroups: [],
+      roundsPlayed: 0,
+      opponents: [],
     });
   };
 
   const handleRemovePlayer = (index) => {
-    setPlayers((prev) => prev.filter((_, i) => i !== index));
+    let toBeRemoved = players[index];
+    let arr = players.filter((val) => val !== toBeRemoved);
+    setPlayers(arr);
   };
 
   const handleSubmitToDatabase = () => {
@@ -62,21 +71,17 @@ const AddPlayers = () => {
       alert("Please add at least one player before submitting.");
       return;
     }
-    const confirmSubmit = window.confirm("Are you sure you want to submit players?");
+    const confirmSubmit = window.confirm(
+      "Are you sure you want to submit players?"
+    );
     if (!confirmSubmit) return;
-
-    console.log("Players to submit:", players);
-    console.log("Tournament details:", tournamentDetails);
 
     navigate("/pairings", { state: { players, tournamentDetails } });
   };
 
-  const sortedPlayers = [...players].sort((a, b) => b.playerRating - a.playerRating);
-
-  useEffect(() => {
-    console.log("Form Data:", formData);
-    console.log("Tournament Details:", tournamentDetails);
-  }, [formData]);
+  const sortedPlayers = [...players].sort(
+    (a, b) => b.playerRating - a.playerRating
+  );
 
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
@@ -185,19 +190,21 @@ const AddPlayers = () => {
           </label>
         </div>
 
-        <div style={{ marginTop: "20px" }}>
-          <label>Categories:</label>
-          {["U8", "U10", "U14", "U16", "U18", "U20", "Open", "Ladies"].map((group) => (
-            <div key={group}>
-              <input
-                type="checkbox"
-                value={group}
-                checked={player.ageGroups.includes(group)}
-                onChange={handleAgeGroupChange}
-              />
-              <label>{group}</label>
-            </div>
-          ))}
+        <div style={{ marginTop: "5%", height: "20vh" }}>
+          <h3>Categories:</h3> <br />
+          {["U8", "U10", "U14", "U16", "U18", "U20", "Open", "Ladies"].map(
+            (group) => (
+              <div key={group} id="age-checkbox">
+                <input
+                  type="checkbox"
+                  value={group}
+                  checked={player.ageGroups.includes(group)}
+                  onChange={handleAgeGroupChange}
+                />
+                <label>{group}</label>
+              </div>
+            )
+          )}
         </div>
 
         <button type="submit" style={buttonStyle}>
@@ -229,7 +236,10 @@ const AddPlayers = () => {
                 <td>{p.province}</td>
                 <td>{p.ageGroups.join(", ")}</td>
                 <td>
-                  <button onClick={() => handleRemovePlayer(index)} style={buttonStyle}>
+                  <button
+                    onClick={() => handleRemovePlayer(index)}
+                    style={buttonStyle}
+                  >
                     Remove
                   </button>
                 </td>
