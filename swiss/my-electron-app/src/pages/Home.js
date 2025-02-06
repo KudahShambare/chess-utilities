@@ -29,7 +29,7 @@ const Home = () => {
       </div>
 
       <footer style={{ marginTop: "50px", fontSize: "14px", color: "#888" }}>
-        © {new Date().getFullYear()} Beast(O) Softwares. All rights reserved.
+        © {new Date().getFullYear()} Sigmoid Softwares. All rights reserved.
       </footer>
     </div>
   );
