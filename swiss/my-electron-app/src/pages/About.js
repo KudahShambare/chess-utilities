@@ -8,7 +8,7 @@ const About = () => {
       <section style={{ margin: "20px 0" }}>
         <h2 style={{ color: "#007bff" }}>About the Developer</h2>
         <p>
-          Hi! I'm <strong>[Your Name]</strong>, the creator and developer behind this Chess Pairing System. 
+          Hi! I'm <strong> <a href="https://github.com/KudahShambare" target="_blank"> Kuda</a> </strong>, the creator and developer behind this Aduk Chess Pairing System. 
           As a passionate chess enthusiast and software developer, I wanted to create a tool that would make 
           organizing chess tournaments easier, more efficient, and accessible to everyone. The goal of this 
           project is to bridge my love for chess with my commitment to creating high-quality, user-centric software.
@@ -18,7 +18,7 @@ const About = () => {
       <section style={{ margin: "20px 0" }}>
         <h2 style={{ color: "#007bff" }}>Why This Project is FOSS (Free and Open Source Software)</h2>
         <p>
-          This Chess Pairing System is Free and Open Source Software because I believe in the power of collaboration 
+          This pairing System is Free and Open Source Software because I believe in the power of collaboration 
           and community-driven innovation. By making the code open source, I aim to:
         </p>
         <ul>
@@ -35,17 +35,16 @@ const About = () => {
         <ul>
           <li><strong>Dynamic Pairing Generator:</strong> Automatically creates pairings based on player rankings, points, and pre-set rules.</li>
           <li><strong>Customizable Tournament Settings:</strong> Allows organizers to adjust parameters like the number of rounds, scoring rules, and more.</li>
-          <li><strong>Real-Time Updates:</strong> Players' scores and rankings are updated automatically after each round.</li>
-          <li><strong>Responsive Design:</strong> Works seamlessly on desktops, tablets, and smartphones.</li>
         </ul>
 
         <h3>Features in Development</h3>
         <ul>
+        <li><strong>Real-Time Updates:</strong> Players' scores and rankings are updated automatically after each round.</li>
           <li><strong>Swiss Pairing Algorithm Improvements:</strong> Advanced tie-breaking methods and enhanced performance for large tournaments.</li>
           <li><strong>Player Statistics Dashboard:</strong> Detailed stats, performance trends, and personal records for each player.</li>
           <li><strong>Integration with Online Chess Platforms:</strong> Direct syncing with popular platforms like Chess.com and Lichess.org.</li>
           <li><strong>User Roles:</strong> Differentiated access for tournament organizers, arbiters, and players.</li>
-          <li><strong>Localization Support:</strong> Multilingual interface to cater to a global audience.</li>
+          <li><strong>Local Language Support:</strong> Multilingual interface to cater to a global audience.</li>
         </ul>
       </section>
 
@@ -70,7 +69,7 @@ const About = () => {
       <section style={{ margin: "20px 0" }}>
         <h2 style={{ color: "#007bff" }}>Join Us on This Journey</h2>
         <p>
-          This Chess Pairing System is more than just software; it’s a community-driven project built on the principles 
+          This Aduk Chess Pairing System is more than just software; it’s a community-driven project built on the principles 
           of collaboration, transparency, and the love of chess. Together, we can create a tool that serves the global chess 
           community and simplifies the way tournaments are organized.
         </p>
