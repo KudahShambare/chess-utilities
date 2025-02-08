@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { PlayersContext } from "../App";
+
 const AddPlayers = () => {
+  /*Hooks*/
+  //use context
+  const {players,setPlayers} = useContext(PlayersContext)
   const location = useLocation();
   const navigate = useNavigate();
 
   const formData = location.state?.formData;
   const [tournamentDetails, setTournamentDetails] = useState(formData);
-  const [players, setPlayers] = useState([]); //all players array
   const [player, setPlayer] = useState({
     playerName: "",
     playerRating: "",
@@ -63,6 +67,9 @@ const AddPlayers = () => {
   const handleRemovePlayer = (index) => {
     let toBeRemoved = players[index];
     let arr = players.filter((val) => val !== toBeRemoved);
+   
+    
+    
     setPlayers(arr);
   };
 
