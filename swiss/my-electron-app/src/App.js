@@ -9,16 +9,17 @@ import Pairings from './pages/Pairings';
 import About from './pages/About';
 
 export const DisplayResultPopup  = createContext()
-
+export const PlayersContext = createContext()
 
 function App() {
 
 const [display, setDisplay] = useState(false);
+const [players,setPlayers] = useState([])
 
   return (
     <div className="App">
  
-
+  <PlayersContext.Provider value={{players,setPlayers}}>
     <DisplayResultPopup.Provider value={{display, setDisplay}}>
    <Routes>
 
@@ -31,6 +32,7 @@ const [display, setDisplay] = useState(false);
 
     </Routes>
     </DisplayResultPopup.Provider>
+    </PlayersContext.Provider>
     </div>
   );
 }

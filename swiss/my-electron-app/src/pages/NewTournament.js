@@ -39,6 +39,7 @@ const NewTournament = () => {
       !arbiterName ||
       !tournamentType
     ) {
+      
       alert("Please fill out all fields.");
       return false;
     }

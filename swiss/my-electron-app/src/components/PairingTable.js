@@ -1,42 +1,34 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 //LOCAL IMPORTS
-import { DisplayResultPopup } from "../App";
+import { DisplayResultPopup, PlayersContext } from "../App";
 import GameResult from "./GameResult";
 
-
-
-const PairingTable = ({ pairings, heading, players }) => {
+const PairingTable = ({ pairings, heading }) => {
   /*Hooks*/
 
-  const {display, setDisplay} = useContext(DisplayResultPopup);
+  const { display, setDisplay } = useContext(DisplayResultPopup);
+  const { players, setPlayers } = useContext(PlayersContext);
 
-  const [showResultForm, setShowResultForm] = useState(false);
   const [currentBoard, setCurrentBoard] = useState({});
   const [allPlayers, setAllPlayers] = useState([...players]); // Clone to avoid mutating the prop
   /** Result input form will only appear when a button is clicked and must disaappear when result confirmed */
 
-
-
   //prompt arbiter to enter game results function
   const enterResult = (board) => {
+    setCurrentBoard(board);
+    let arr = allPlayers.map((player) => {
+      return { playerName: player.playerName, points: player.points };
+    });
 
-  console.log(board);
-  let arr = allPlayers.map((player) => {
-    return {playerName: player.playerName, points: player.points}
-  });
-   
     setDisplay(true);
-  
- console.log(arr);
- 
   };
-
-  
 
   return (
     <>
-    {display && <GameResult players={allPlayers} currentBoard={currentBoard} />}
+      {display && (
+        <GameResult players={allPlayers} currentBoard={currentBoard} />
+      )}
       <h2>{heading}</h2>
       <table
         style={{ width: "100%", borderCollapse: "collapse", margin: "20px 0" }}
@@ -85,9 +77,7 @@ const PairingTable = ({ pairings, heading, players }) => {
             <th style={{ border: "1px solid #ccc", padding: "10px" }}>
               Points
             </th>
-            <th style={{ border: "1px solid #ccc", padding: "10px" }}>
-         
-            </th>
+            <th style={{ border: "1px solid #ccc", padding: "10px" }}></th>
             <th style={{ border: "1px solid #ccc", padding: "10px" }}>Name</th>
             <th style={{ border: "1px solid #ccc", padding: "10px" }}>
               Rating
@@ -138,24 +128,24 @@ const PairingTable = ({ pairings, heading, players }) => {
                 }}
               >
                 <section id="round-result">
-                <button
-                  style={{
-                    padding: "5px 10px",
-                    backgroundColor: "#4CAF50",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "3px",
-                    cursor: "pointer",
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    enterResult(row);
-                  }}
-                >
-                  Add Result
-                </button>
+                  <button
+                    style={{
+                      padding: "5px 10px",
+                      backgroundColor: "#4CAF50",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "3px",
+                      cursor: "pointer",
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      enterResult(row);
+                    }}
+                  >
+                    Add Result
+                  </button>
                 </section>
-                             </td>
+              </td>
               <td style={{ border: "1px solid #ccc", padding: "10px" }}>
                 {row.black.playerName}
               </td>
