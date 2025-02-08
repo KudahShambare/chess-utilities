@@ -63,6 +63,8 @@ const firstPairing = (players, topSeedColor = "white") => {
 };
 
 const otherRoundsPairing = (allPlayers, round) => {
+    console.log("pop");
+    
     let maxScore = round - 1;
     let scoreGroups = [];
     let id = 0;
@@ -71,11 +73,24 @@ const otherRoundsPairing = (allPlayers, round) => {
         scoreGroups.push({
             id: id,
             score: i,
+            players:[]
         });
         id++;
     }
 
-    console.log(scoreGroups);
+
+  for(let i=0;i<allPlayers.length;i++){
+    let score = allPlayers[i].points;
+     for(let j=0;j<scoreGroups.length;j++){
+        if(scoreGroups[j] == score){
+            scoreGroups[j].players.push(allPlayers[i])
+        }
+     }
+  }
+
+console.log(scoreGroups);
+
+
 };
 //Update points
 const updatePlayer = (allPlayers,playerName) =>{
@@ -87,15 +102,13 @@ const updatePoints = (players,result,currentBoard) =>{
     //Steps
     //capture individual player points
   
-console.log("Result",result,players);
 if(players.length >0){
- console.log(currentBoard);
  let whitePlayer = currentBoard.white
  let blackPlayer = currentBoard.black
 
  switch (result){
     case "1-0":
-        whitePlayer.point+=1;
+        whitePlayer.points+=1;
         whitePlayer.roundsPlayed +=1;
         blackPlayer.roundsPlayed +=1;
         break;
@@ -127,14 +140,13 @@ if(players.length >0){
    let black = updatePlayer(players,blackPlayer.playerName)
    let white = updatePlayer(players,whitePlayer.playerName)
 
-   console.log(black,white);
    
 
 }
 
 }
 
-module.exports = { firstPairing, otherRoundsPairing,updatePoints };
+export { firstPairing, otherRoundsPairing, updatePoints };
 
 /****
  * missing tirbreak and perfomance rating calculation
