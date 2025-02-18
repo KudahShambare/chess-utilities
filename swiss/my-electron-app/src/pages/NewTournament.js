@@ -120,7 +120,7 @@ const NewTournament = () => {
             name="rounds"
             value={formData.rounds}
             onChange={handleChange}
-            min="1"
+            min="3"
             placeholder="Enter number of rounds"
             style={{ width: "100%", padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }}
             required

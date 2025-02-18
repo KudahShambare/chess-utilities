@@ -1,7 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+
 import { PlayersContext } from "../App";
+import { validRound } from "../scripts/swiss/swiss";
 
 const AddPlayers = () => {
   /*Hooks*/
@@ -10,8 +12,13 @@ const AddPlayers = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const formData = location.state?.formData;
+  //use state
+    const formData = location.state?.formData;
   const [tournamentDetails, setTournamentDetails] = useState(formData);
+
+  //by default set the minimum number of players to 4
+  const [minPlayers, setMinPlayers] = useState(4);
+
   const [player, setPlayer] = useState({
     playerName: "",
     playerRating: "",
@@ -23,6 +30,13 @@ const AddPlayers = () => {
     fideTitle: "",
     ageGroups: [], // age group or Ladies/Open
   });
+
+
+  const numberOfRounds = tournamentDetails?.rounds;
+
+  
+
+  /*****************Functions */
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -78,6 +92,15 @@ const AddPlayers = () => {
       alert("Please add at least one player before submitting.");
       return;
     }
+    //validate number of players vs number of rounds
+    let validPairings = validRound(players,numberOfRounds);
+    console.log(validPairings,"here");
+
+    if(!validPairings){
+      alert("Invalid number of players for the number of rounds");
+      return
+    }
+    
     const confirmSubmit = window.confirm(
       "Are you sure you want to submit players?"
     );

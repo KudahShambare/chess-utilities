@@ -56,42 +56,79 @@ const firstPairing = (players, topSeedColor = "white") => {
         });
     }
 
-   // console.log(pairings);
-    
+   
 
     return pairings;
 };
 
 const otherRoundsPairing = (allPlayers, round) => {
-    console.log("pop");
-    
+    const numTables = Math.floor(allPlayers.length / 2); // Number of pairs to be generated
     let maxScore = round - 1;
     let scoreGroups = [];
     let id = 0;
 
+    // Create score groups
     for (let i = 0; i <= maxScore; i += 0.5) {
         scoreGroups.push({
             id: id,
             score: i,
-            players:[]
+            players: []
         });
         id++;
     }
 
-
-  for(let i=0;i<allPlayers.length;i++){
-    let score = allPlayers[i].points;
-     for(let j=0;j<scoreGroups.length;j++){
-        if(scoreGroups[j] == score){
-            scoreGroups[j].players.push(allPlayers[i])
+    // Assign players to their respective score groups
+    for (let i = 0; i < allPlayers.length; i++) {
+        let score = allPlayers[i].points;
+        for (let j = 0; j < scoreGroups.length; j++) {
+            if (scoreGroups[j].score === score) {
+                scoreGroups[j].players.push(allPlayers[i]);
+            }
         }
-     }
-  }
+    }
 
-console.log(scoreGroups);
+    let pairings = []; // Store all next round pairings
+    let boardNumber = 1; // Keep track of boards
 
+    // Reverse score groups so highest scores are paired first
+    scoreGroups = scoreGroups.reverse();
 
+    for (let i = 0; i < scoreGroups.length; i++) {
+        let current = scoreGroups[i];
+
+        // If odd number of players in this group, move one to the next group
+        if (current.players.length % 2 !== 0) {
+            if (i + 1 < scoreGroups.length) { 
+                let toGoNext = current.players[current.players.length - 1]; // Get last player
+
+                // Remove player from current group safely
+                let index = current.players.findIndex(p => p.playerName === toGoNext.playerName);
+                if (index !== -1) current.players.splice(index, 1);
+
+                // Move to next group
+                scoreGroups[i + 1].players.unshift(toGoNext);
+            }
+        }
+
+        // Generate pairings within this score group
+        for (let j = 0; j < current.players.length ; j += 2) {
+            const pairing = {
+                board: boardNumber,
+                white: current.players[j],
+                black: current.players[j + 1],
+            };
+            if(pairing.black == undefined){
+                pairing.black = "bye"
+            }
+            pairings.push(pairing);
+            boardNumber++;
+        }
+    }
+
+    console.log(pairings);
+    return pairings;
 };
+
 //Update points
 const updatePlayer = (allPlayers,playerName) =>{
     if(allPlayers.length<1) return;
@@ -146,8 +183,34 @@ if(players.length >0){
 
 }
 
-export { firstPairing, otherRoundsPairing, updatePoints };
+//validate number of rounds vs number of players
+
+const validRound = (players,rounds)=>{
+    //minimum number of rounds = 3
+    if(rounds<3){
+        return false;
+    }
+    //minimum number of players = 4
+    if(players.length<4){
+        return false;
+    }
+    //calculate minimum number of players for a given number of rounds
+    let minPlayers = Math.ceil(Math.pow(2,rounds-1)) ;
+    let maxPlayers = Math.ceil(Math.pow(2,rounds)) ;
+
+    if(players.length<minPlayers || players.length>maxPlayers){
+        return false;
+    }
+    return true;
+}
+
+
+
+//Export functions
+
+export { firstPairing, otherRoundsPairing, updatePoints,validRound };
 
 /****
  * missing tirbreak and perfomance rating calculation
+ * the minimum number of rounds and players contrints need to be updated
  */
