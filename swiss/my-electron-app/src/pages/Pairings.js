@@ -12,6 +12,7 @@ import { firstPairing, otherRoundsPairing } from "../scripts/swiss/swiss";
 import RankingTable from "../components/RankingTable";
 import PairingTable from "../components/PairingTable";
 import { PlayersContext } from "../App";
+import Button from 'react-bootstrap/Button';
 
 
 const Pairings = () => {
@@ -19,11 +20,13 @@ const Pairings = () => {
   
   const location = useLocation();
 let tournamentDetails = location.state?.tournamentDetails || []
+
 //useContext
 const {players,setPlayers} = useContext(PlayersContext)
 //useState
   const [pairings, setPairings] = useState([]); // Store pairings
   const [pairingTableHeading,setPairingTableHeading] = useState("Round 1 Pairing")
+  const [maxRounds,setMaxRounds] = useState(Number(tournamentDetails.rounds))
 
 
 
@@ -42,6 +45,10 @@ const {players,setPlayers} = useContext(PlayersContext)
 
   const nextRoundPairing = ()=>{
     let roundNumber = players[0].roundsPlayed+1;
+    if(roundNumber > maxRounds){
+      alert("All rounds have been played")
+      return
+    }
     setPairingTableHeading(`Round ${roundNumber} pairing`)
    let newPiring = otherRoundsPairing(players,roundNumber);
 
@@ -55,7 +62,7 @@ const {players,setPlayers} = useContext(PlayersContext)
     <div>
      
      <RankingTable caption=" Ranking" />
-     <button>export rankings</button>
+     <Button variant="info">Export Results</Button>
 
     <PairingTable pairings={pairings}  heading={pairingTableHeading}/>
     <button>export pairings</button>

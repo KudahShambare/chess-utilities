@@ -185,24 +185,28 @@ if(players.length >0){
 
 //validate number of rounds vs number of players
 
-const validRound = (players,rounds)=>{
-    //minimum number of rounds = 3
-    if(rounds<3){
-        return false;
+const validRound = (players, rounds) => {
+    // Minimum number of rounds = 2
+    if (rounds < 2) {
+      return false;
     }
-    //minimum number of players = 4
-    if(players.length<4){
-        return false;
+  
+    // Minimum number of players = 3
+    if (players.length < 3) {
+      return false;
     }
-    //calculate minimum number of players for a given number of rounds
-    let minPlayers = Math.ceil(Math.pow(2,rounds-1)) ;
-    let maxPlayers = Math.ceil(Math.pow(2,rounds)) ;
-
-    if(players.length<minPlayers || players.length>maxPlayers){
-        return false;
+  
+    // Calculate minimum and maximum number of players for the given number of rounds
+    const minPlayers = Math.pow(2, rounds - 1) + 1;
+    const maxPlayers = Math.pow(2, rounds);
+  
+    // Check if the number of players is within the valid range
+    if (players.length < minPlayers || players.length > maxPlayers) {
+      return false;
     }
+  
     return true;
-}
+  };
 
 
 
