@@ -10,17 +10,21 @@ const Home = () => {
       <img  src={logo} id="logo"/>
 
       <section id="welcome">
-      <h3> Notice:</h3>
-      <p>
-  <strong>Welcome to the beta version of the Aduk Pairing System! 🚀</strong>
-  <br />
-  <br />
-  As this is an early release, some bugs and issues are expected. Your feedback is invaluable in helping us improve. If you encounter any problems or have suggestions, please report them to the developers.
-  <br />
-  <br />
-  Thank you for being part of this journey!
-</p>
-        </section>
+  <h3>Notice:</h3>
+  <p>
+    <strong>Welcome to the beta version of the Aduk Pairing System! 🚀</strong>
+    <br />
+    <br />
+    As this is an early release, some bugs and issues are expected. Your feedback is invaluable in helping us improve. If you encounter any problems or have suggestions, please report them to the developers.
+    <br />
+    <br />
+    Thank you for being part of this journey!
+    <br />
+    <br />
+    <strong>Exciting News!</strong> The Aduk Pairing System will soon be available as a desktop application. For now, enjoy the demo in its web app form, and stay tuned for updates on the desktop release!
+  </p>
+</section>
+
     
 
 

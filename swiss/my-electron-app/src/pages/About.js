@@ -1,8 +1,14 @@
 import React from "react";
 
 const About = () => {
-  return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif", lineHeight: "1.6" }}>
+  return<>
+  <h1>Page Coming Soon</h1>
+  </>
+};
+
+export default About;
+/****
+ *  <div style={{ padding: "20px", fontFamily: "Arial, sans-serif", lineHeight: "1.6" }}>
       <h1 style={{ textAlign: "center", color: "#333" }}>About the Chess Pairing System</h1>
       
       <section style={{ margin: "20px 0" }}>
@@ -76,7 +82,4 @@ const About = () => {
         <p>Thank you for supporting the project!</p>
       </section>
     </div>
-  );
-};
-
-export default About;
+ */
