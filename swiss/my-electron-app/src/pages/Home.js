@@ -1,13 +1,28 @@
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
+
+import logo from "../assets/logo.webp";
 
 const Home = () => {
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
       <h1>Aduk Pairing System <span id="beta"> Beta Version</span></h1>
-      <p style={{ fontSize: "18px", color: "#555" }}>
-        Welcome to the ultimate chess tournament pairing system. Organize and
-        manage your tournaments with ease.
-      </p>
+      <img  src={logo} id="logo"/>
+
+      <section id="welcome">
+      <h3> Notice:</h3>
+      <p>
+  <strong>Welcome to the beta version of the Aduk Pairing System! 🚀</strong>
+  <br />
+  <br />
+  As this is an early release, some bugs and issues are expected. Your feedback is invaluable in helping us improve. If you encounter any problems or have suggestions, please report them to the developers.
+  <br />
+  <br />
+  Thank you for being part of this journey!
+</p>
+        </section>
+    
+
 
       <div style={{ marginTop: "30px" }}>
         <Link to="/new">
@@ -62,9 +77,7 @@ const Home = () => {
         </Link>
       </div>
 
-      <footer style={{ marginTop: "50px", fontSize: "14px", color: "#888" }}>
-        © {new Date().getFullYear()} Sigmoid Softwares. All rights reserved.
-      </footer>
+   <Footer/>
     </div>
   );
 };

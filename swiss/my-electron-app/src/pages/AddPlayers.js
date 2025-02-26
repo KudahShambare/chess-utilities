@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 
 import { PlayersContext } from "../App";
 import { validRound } from "../scripts/swiss/swiss";
+import PairingRules from "../components/PairingRules";
 
 const AddPlayers = () => {
   /*Hooks*/
@@ -16,8 +17,8 @@ const AddPlayers = () => {
     const formData = location.state?.formData;
   const [tournamentDetails, setTournamentDetails] = useState(formData);
 
-  //by default set the minimum number of players to 4
-  const [minPlayers, setMinPlayers] = useState(4);
+  //by default set the minimum number of players to 3
+  const [minPlayers, setMinPlayers] = useState(3);
 
   const [player, setPlayer] = useState({
     playerName: "",
@@ -34,6 +35,10 @@ const AddPlayers = () => {
 
   const numberOfRounds = tournamentDetails?.rounds;
 
+useEffect(() => {
+  setMinPlayers(Math.ceil(Math.pow(2, (numberOfRounds-1) ))+1);
+
+}, []);
   
 
   /*****************Functions */
@@ -94,10 +99,12 @@ const AddPlayers = () => {
     }
     //validate number of players vs number of rounds
     let validPairings = validRound(players,numberOfRounds);
+    console.log(numberOfRounds,"here");
+    
     console.log(validPairings,"here");
 
     if(!validPairings){
-      alert("Invalid number of players for the number of rounds");
+      alert(`Invalid number of players for the number of rounds. ${numberOfRounds} rounds require a minimum of ${minPlayers} players.`);
       return
     }
     
@@ -115,6 +122,8 @@ const AddPlayers = () => {
 
   return (
     <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
+            <PairingRules/>
+
       <h2 style={{ textAlign: "center" }}>Add Players</h2>
 
       <form onSubmit={handleAddPlayer} style={{ marginBottom: "20px" }}>
@@ -242,7 +251,7 @@ const AddPlayers = () => {
         </button>
       </form>
 
-      <h3>Players Added</h3>
+      <h3>{players.length} Players Added</h3>
       {sortedPlayers.length > 0 ? (
         <table border="1" style={{ width: "100%", textAlign: "center" }}>
           <thead>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import logo from "../assets/logo.webp";
+
 const NewTournament = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -60,8 +62,10 @@ const NewTournament = () => {
   };
 
   return (
+
     <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
-      <h2 style={{ textAlign: "center", color: "#333" }}>Create New Chess Tournament</h2>
+      <img src={logo} alt="logo" style={{ display: "block", margin: "0 auto", width: "100px" }} />
+      <h2 style={{ textAlign: "center" }}>Create New Chess Tournament</h2>
       <form style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
         <div>
           <label style={{ display: "block", marginBottom: "5px" }}>Tournament Name:</label>
@@ -83,7 +87,7 @@ const NewTournament = () => {
             name="location"
             value={formData.location}
             onChange={handleChange}
-            placeholder="Enter location"
+            placeholder=" City, Country"
             style={{ width: "100%", padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }}
             required
           />
@@ -120,7 +124,8 @@ const NewTournament = () => {
             name="rounds"
             value={formData.rounds}
             onChange={handleChange}
-            min="3"
+            min="2"
+            max="8"
             placeholder="Enter number of rounds"
             style={{ width: "100%", padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }}
             required
@@ -141,7 +146,7 @@ const NewTournament = () => {
         </div>
 
         <div>
-          <label style={{ display: "block", marginBottom: "5px" }}>Tournament Poster URL:</label>
+          <label style={{ display: "block", marginBottom: "5px" }}>Tournament Advert URL:</label>
           <input
             type="url"
             name="posterURL"
