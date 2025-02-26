@@ -1,4 +1,3 @@
-import JotformEmbed from 'react-jotform-embed';
 
 const Contact = ()=>{
     return(

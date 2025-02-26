@@ -1,9 +1,23 @@
 /****Home Page***/
-
+body{
+  height: 100vh;
+  background-color: #282c34;
+  color: #E5C07B
+}
 #beta{
   color:#B82132 ;
 }
+#logo{
+  height: 20vh;
+}
+#welcome{
+  font-size: 1em;
+  margin-top: 5%;
+  width: 50vw;
+  margin: 0 auto;
+}
 
+/***************************************/
 #age-checkbox{
   display: inline;
   border: #282c34 solid 2px;
@@ -17,4 +31,16 @@ iframe{
   width: 100%;
   height: 100vh;
   overflow: hidden;
+}
+
+footer{
+  background-color: #282c34;
+  color: rgb(217, 210, 233);
+  text-align: center;
+  padding: 1%;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  font-weight: bolder;
 }
