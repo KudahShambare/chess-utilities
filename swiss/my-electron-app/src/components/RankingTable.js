@@ -7,18 +7,31 @@ const RankingTable = ({ caption }) => {
   // Sort players before rendering
   const sortedPlayers = [...players].sort((a, b) => b.points - a.points || b.playerRating - a.playerRating);
 
-  const headerCellStyle = {
-    padding: "10px",
-    border: "1px solid #ddd",
-    fontWeight: "bold",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    textAlign: "left",
-  };
-
-  const cellStyle = {
-    padding: "10px",
-    border: "1px solid #ddd",
+  const styles = {
+    table: {
+      width: "100%",
+      borderCollapse: "collapse",
+      backgroundColor: "#282c34", // Match body background
+    },
+    headerCell: {
+      padding: "10px",
+      border: "1px solid #3E4451",
+      fontWeight: "bold",
+      color: "#E5C07B", // Accent color for headers (bright yellow)
+      textAlign: "left",
+      backgroundColor: "#2C313C", // Slightly darker background for headers
+    },
+    cell: {
+      padding: "10px",
+      border: "1px solid #3E4451",
+      color: "#1D2B53", // Bright white for text
+    },
+    rowEven: {
+      backgroundColor: "#3E4451", // Light gray for even rows
+    },
+    rowOdd: {
+      backgroundColor: "#2C313C", // Slightly darker for odd rows
+    },
   };
 
   return (
@@ -35,29 +48,29 @@ const RankingTable = ({ caption }) => {
         >
           <thead>
             <tr>
-              <th style={headerCellStyle}>Rank</th>
-              <th style={headerCellStyle}>Player Name</th>
-              <th style={headerCellStyle}>Rating</th>
-              <th style={headerCellStyle}>Province</th>
-              <th style={headerCellStyle}>FIDE Title</th>
-              <th style={headerCellStyle}>Points</th>
-              <th style={headerCellStyle}>Rounds Played</th>
-              <th style={headerCellStyle}>Performance Rating</th>
-              <th style={headerCellStyle}>Tiebreak</th>
+              <th style={styles.headerCell}>Rank</th>
+              <th style={styles.headerCell}>Player Name</th>
+              <th style={styles.headerCell}>Rating</th>
+              <th style={styles.headerCell}>Province</th>
+              <th style={styles.headerCell}>FIDE Title</th>
+              <th style={styles.headerCell}>Points</th>
+              <th style={styles.headerCell}>Rounds Played</th>
+              <th style={styles.headerCell}>Performance Rating</th>
+              <th style={styles.headerCell}>Tiebreak</th>
             </tr>
           </thead>
           <tbody>
             {sortedPlayers.map((player, index) => (
               <tr key={index} style={{ backgroundColor: index % 2 === 0 ? "#f9f9f9" : "#fff" }}>
-                <td style={cellStyle}>{index + 1}</td>
-                <td style={cellStyle}>{player.playerName}</td>
-                <td style={cellStyle}>{player.playerRating}</td>
-                <td style={cellStyle}>{player.province}</td>
-                <td style={cellStyle}>{player.fideTitle}</td>
-                <td style={cellStyle}>{player.points}</td>
-                <td style={cellStyle}>{player.roundsPlayed || "N/A"}</td>
-                <td style={cellStyle}>{player.performanceRating || "N/A"}</td>
-                <td style={cellStyle}>{player.tiebreak || "N/A"}</td>
+                <td style={styles.cell}>{index + 1}</td>
+                <td style={styles.cell}>{player.playerName}</td>
+                <td style={styles.cell}>{player.playerRating}</td>
+                <td style={styles.cell}>{player.province}</td>
+                <td style={styles.cell}>{player.fideTitle}</td>
+                <td style={styles.cell}>{player.points}</td>
+                <td style={styles.cell}>{player.roundsPlayed || "N/A"}</td>
+                <td style={styles.cell}>{player.performanceRating || "N/A"}</td>
+                <td style={styles.cell}>{player.tiebreak || "N/A"}</td>
               </tr>
             ))}
           </tbody>
