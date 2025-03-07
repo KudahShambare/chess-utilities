@@ -3,6 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 
 // Local Imports
 import { DisplayResultPopup } from "../App";
+import "./GameResult.css";
 import { updatePoints } from "../scripts/swiss/swiss";
 
 const GameResult = ({ players, currentBoard }) => {
