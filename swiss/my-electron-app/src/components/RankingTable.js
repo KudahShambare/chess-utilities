@@ -68,9 +68,9 @@ const RankingTable = ({ caption }) => {
                 <td style={styles.cell}>{player.province}</td>
                 <td style={styles.cell}>{player.fideTitle}</td>
                 <td style={styles.cell}>{player.points}</td>
-                <td style={styles.cell}>{player.roundsPlayed || "N/A"}</td>
+                <td style={styles.cell}>{player.roundsPlayed }</td>
                 <td style={styles.cell}>{player.performanceRating || "N/A"}</td>
-                <td style={styles.cell}>{player.tiebreak || "N/A"}</td>
+                <td style={styles.cell}>{player. tiebreakBucholz|| "N/A"}</td>
               </tr>
             ))}
           </tbody>
