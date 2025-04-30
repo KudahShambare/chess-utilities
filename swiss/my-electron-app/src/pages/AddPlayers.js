@@ -60,6 +60,10 @@ useEffect(() => {
 
   const handleAddPlayer = (e) => {
     e.preventDefault();
+    //assume by default a player is not titled
+    if (!player.fideTitle) {
+      player.fideTitle = "None";
+    }
     if (
       !player.playerName ||
       !player.playerRating ||

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import logo from "../assets/logo.webp";
+import logo from "../../assets/logo.webp";
 
 const NewTournament = () => {
   const navigate = useNavigate();
@@ -14,6 +13,7 @@ const NewTournament = () => {
     arbiterName: "",
     tournamentType: "",
     posterURL: "",
+    tournamentMode: "Local", // Default to Local
   });
 
   const handleChange = (e) => {
@@ -41,7 +41,6 @@ const NewTournament = () => {
       !arbiterName ||
       !tournamentType
     ) {
-      
       alert("Please fill out all fields.");
       return false;
     }
@@ -54,19 +53,83 @@ const NewTournament = () => {
     return true;
   };
 
-  const handleNext = (e) => {
+  const handleNext = async (e) => {
     e.preventDefault();
-    if (handleValidation()) {
-      navigate("/new/addplayers", { state: { formData } });
+    if (!handleValidation()) return;
+
+    if (formData.tournamentMode === "Local") {
+      // Save to localStorage
+      const localTournaments = JSON.parse(localStorage.getItem("tournaments")) || [];
+      localTournaments.push(formData);
+      localStorage.setItem("tournaments", JSON.stringify(localTournaments));
+
+      alert("Tournament saved locally!");
+      navigate("/addplayers", { state: { formData } });
+    } else {
+      // Save to cloud
+      try {
+        const response = await fetch("https://your-api.com/tournaments", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) throw new Error("Failed to save to cloud");
+
+        const result = await response.json();
+        alert("Tournament saved to the cloud!");
+        navigate("/cloud/", { state: { formData, id: result.id } });
+      } catch (error) {
+        alert("Cloud save failed: " + error.message);
+      }
     }
   };
 
   return (
-
     <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
       <img src={logo} alt="logo" style={{ display: "block", margin: "0 auto", width: "100px" }} />
       <h2 style={{ textAlign: "center" }}>Create New Chess Tournament</h2>
+
       <form style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+        <div>
+          <label style={{ display: "block", marginBottom: "5px" }}>Tournament Mode:</label>
+          <select
+            name="tournamentMode"
+            value={formData.tournamentMode}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }}
+            required
+          >
+            <option value="Local">Local (Offline)</option>
+            <option value="Cloud">Cloud</option>
+          </select>
+        </div>
+
+        <div>
+          <label style={{ display: "block", marginBottom: "5px" }}>Tournament Type:</label>
+          <select
+            name="tournamentType"
+            value={formData.tournamentType}
+            onChange={handleChange}
+            style={{ width: "100%", padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }}
+            required
+          >
+            <option value="" disabled>Select Type</option>
+            <option value="Swiss">Swiss</option>
+            <option value="Round Robin" disabled={formData.tournamentMode === "Cloud"}>
+              Round Robin (Coming Soon)
+            </option>
+            <option value="Double Round" disabled={formData.tournamentMode === "Cloud"}>
+              Double Round (Coming Soon)
+            </option>
+            <option value="Knockout" disabled={formData.tournamentMode === "Cloud"}>
+              Knockout (Coming Soon)
+            </option>
+          </select>
+        </div>
+
         <div>
           <label style={{ display: "block", marginBottom: "5px" }}>Tournament Name:</label>
           <input
@@ -87,7 +150,7 @@ const NewTournament = () => {
             name="location"
             value={formData.location}
             onChange={handleChange}
-            placeholder=" City, Country"
+            placeholder="City, Country"
             style={{ width: "100%", padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }}
             required
           />
@@ -155,25 +218,6 @@ const NewTournament = () => {
             placeholder="Enter poster URL"
             style={{ width: "100%", padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }}
           />
-        </div>
-
-        <div>
-          <label style={{ display: "block", marginBottom: "5px" }}>Tournament Type:</label>
-          <select
-            name="tournamentType"
-            value={formData.tournamentType}
-            onChange={handleChange}
-            style={{ width: "100%", padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }}
-            required
-          >
-            <option value="" disabled>
-              Select Type
-            </option>
-            <option value="Swiss">Swiss</option>
-            <option value="Round Robin">Round Robin (Coming Soon)</option>
-            <option value="Double Round">Double Round (Coming Soon)</option>
-            <option value="Knockout">Knockout (Coming Soon)</option>
-          </select>
         </div>
 
         <button
