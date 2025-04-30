@@ -175,33 +175,50 @@ useEffect(() => {
             </label>
           </div>
 
-          <div style={{ flex: "1 1 45%" }}>
-            <label>
-              Province:
-              <select
-                name="province"
-                value={player.province}
-                onChange={handleChange}
-                required
-                style={inputStyle}
-              >
-                <option value="" disabled>
-                  Select Province
-                </option>
-                <option value="Bulawayo">Bulawayo</option>
-                <option value="Harare">Harare</option>
-                <option value="Manicaland">Manicaland</option>
-                <option value="Mashonaland Central">Mashonaland Central</option>
-                <option value="Mashonaland East">Mashonaland East</option>
-                <option value="Mashonaland West">Mashonaland West</option>
-                <option value="Masvingo">Masvingo</option>
-                <option value="Matabeleland North">Matabeleland North</option>
-                <option value="Matabeleland South">Matabeleland South</option>
-                <option value="Midlands">Midlands</option>
-                <option value="International">International</option>
-              </select>
-            </label>
-          </div>
+          <select
+  name="region"
+  value={player.region}
+  onChange={handleChange}
+  required
+  style={inputStyle}
+>
+  <option value="" >Select Region</option>
+
+  <optgroup label="🇿🇼 Zimbabwe Provinces">
+    <option value="Bulawayo">Bulawayo</option>
+    <option value="Harare">Harare</option>
+    <option value="Manicaland">Manicaland</option>
+    <option value="Mashonaland Central">Mashonaland Central</option>
+    <option value="Mashonaland East">Mashonaland East</option>
+    <option value="Mashonaland West">Mashonaland West</option>
+    <option value="Masvingo">Masvingo</option>
+    <option value="Matabeleland North">Matabeleland North</option>
+    <option value="Matabeleland South">Matabeleland South</option>
+    <option value="Midlands">Midlands</option>
+  </optgroup>
+
+  <optgroup label="🌍 FIDE Zones">
+    <option value="Zone 4.1 - North Africa">Zone 4.1 - North Africa</option>
+    <option value="Zone 4.2 - West Africa">Zone 4.2 - West Africa</option>
+    <option value="Zone 4.3 - East Africa">Zone 4.3 - East Africa</option>
+    <option value="Zone 4.4 - Southern Africa">Zone 4.4 - Southern Africa</option>
+    <option value="Zone 3.1 - Scandinavia">Zone 3.1 - Scandinavia</option>
+    <option value="Zone 3.2 - Central Europe">Zone 3.2 - Central Europe</option>
+    <option value="Zone 3.3 - Eastern Europe">Zone 3.3 - Eastern Europe</option>
+    <option value="Zone 3.4 - Southern Europe">Zone 3.4 - Southern Europe</option>
+    <option value="Zone 3.5 - Small Nations">Zone 3.5 - Small Nations</option>
+    <option value="Zone 2.1 - Argentina/Bolivia">Zone 2.1 - Argentina/Bolivia</option>
+    <option value="Zone 2.2 - Brazil/Chile">Zone 2.2 - Brazil/Chile</option>
+    <option value="Zone 2.3 - Central America">Zone 2.3 - Central America</option>
+    <option value="Zone 1.1 - USA">Zone 1.1 - USA</option>
+    <option value="Zone 1.2 - Canada">Zone 1.2 - Canada</option>
+    <option value="Zone 5 - South Asia">Zone 5 - South Asia</option>
+    <option value="Zone 6 - East Asia">Zone 6 - East Asia</option>
+    <option value="Zone 7 - Middle East">Zone 7 - Middle East</option>
+    <option value="Zone 8 - Oceania">Zone 8 - Oceania</option>
+  </optgroup>
+</select>
+
         </div>
 
         <div>
