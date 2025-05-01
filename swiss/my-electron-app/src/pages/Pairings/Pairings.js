@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Container, Button, Card, Spinner, Modal, Row, Col } from 'react-bootstrap';
-import { ArrowRight, Download, Shuffle } from "lucide-react"; // Icons
 
 /* Local imports */
 import { firstPairing, otherRoundsPairing } from "../../scripts/swiss/swiss";
@@ -10,6 +9,7 @@ import PairingTable from "../../components/PairingTable";
 import { PlayersContext } from "../../App";
 import Footer from "../../components/Footer";
 import TournamentDetails from "./TournamentDetails";
+import PairingControls from "./PairingControls";
 
 const Pairings = () => {
   /* Hooks */
@@ -62,6 +62,8 @@ const Pairings = () => {
           </Card>
         </Col>
 
+        <PairingControls/>
+
         {/* Pairing Table */}
         <Col md={7}>
           <Card className="shadow-sm">
@@ -81,42 +83,7 @@ const Pairings = () => {
         </Col>
       </Row>
 
-      {/* Action Buttons */}
-      <div className="d-flex justify-content-center gap-3 my-4">
-        <Button variant="outline-info">
-          <Download size={18} className="me-2" />
-          Export Results
-        </Button>
-        <Button variant="outline-primary">
-          <Download size={18} className="me-2" />
-          Export Pairings
-        </Button>
-        <Button variant="success" onClick={() => setShowModal(true)}>
-          <Shuffle size={18} className="me-2" />
-          Generate Next Round
-        </Button>
-      </div>
-
-      {/* Confirmation Modal */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm Next Round</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="text-center">
-          <p className="fs-5">Are you sure you want to generate the next round pairings?</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Cancel
-          </Button>
-          <Button variant="success" onClick={() => { setShowModal(false); nextRoundPairing(); }}>
-            <ArrowRight size={18} className="me-2" />
-            Confirm
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-    =<Footer/>
+    <Footer/>
     </Container>
   );
 };

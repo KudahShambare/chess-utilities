@@ -3,15 +3,16 @@ import { buchholz } from "./tiebreaks";
 // pairingAlgorithms.js
 const _ = require("lodash");
 
+//For the first round the pairing is based on initial ratinfs
 
-const firstPairing = (players, topSeedColor = "white") => {
+const firstPairing = (players, topSeedColor = "white") => { //players -- array with players details, topSeedColor -- color of the top seed player's pieces for Round 1
   // Sort players by rating in descending order
   let sortedPlayers = _.sortBy(players, ["playerRating"]).reverse();
   let pairings = [];
   const numPlayers = sortedPlayers.length;
 
   // Split players into two groups
-  const numTables = Math.floor(numPlayers / 2);
+  const numTables = Math.floor(numPlayers / 2); 
   const topHalf = sortedPlayers.slice(0, numTables);
   const bottomHalf = sortedPlayers.slice(numTables);
 
@@ -20,6 +21,7 @@ const firstPairing = (players, topSeedColor = "white") => {
       board: i + 1,
       white: null,
       black: null,
+      gamePlayed: false,
     };
 
     // Pair players ensuring unique matches
@@ -61,7 +63,9 @@ const firstPairing = (players, topSeedColor = "white") => {
 };
 
 //Pairings fro round 2 to final round
-const otherRoundsPairing = (allPlayers, round) => {
+const otherRoundsPairing = (allPlayers, round) => { //allPlayers -- array with players details, round -- current round number
+  console.log("allPlayers", allPlayers);
+  
   const numTables = Math.floor(allPlayers.length / 2); // Number of pairs to be generated
   let maxScore = round - 1;
   let scoreGroups = [];
@@ -88,7 +92,7 @@ const otherRoundsPairing = (allPlayers, round) => {
   }
 
   let pairings = []; // Store all next round pairings
-  let boardNumber = 1; // Keep track of boards
+  let boardNumber = 1; // Keep track of boards 
 
   // Reverse score groups so highest scores are paired first
   scoreGroups = scoreGroups.reverse();
@@ -114,6 +118,10 @@ const otherRoundsPairing = (allPlayers, round) => {
 
     // Generate pairings within this score group
     for (let j = 0; j < current.players.length; j += 2) {
+      // Check if players have played each other before
+      let hasPlayed = playedEachOther(current.players[j], current.players[j + 1]);
+      console.log(current.players[j],"hasPlayed", current.players[j+1], hasPlayed);
+      
       const pairing = {
         board: boardNumber,
         white: current.players[j],
@@ -243,6 +251,14 @@ const validRound = (players, rounds) => {
   return true;
 };
 
+//check if 2 players have played each other
+const playedEachOther = (player1, player2) => {
+  // Check if player2 is in player1's opponents list
+  const hasPlayed = player1.opponents.some(
+    (opponent) => opponent.playerName === player2.playerName
+  );  
+  return hasPlayed;
+};
 //Export functions
 
 export { firstPairing, otherRoundsPairing, updatePoints, validRound };
