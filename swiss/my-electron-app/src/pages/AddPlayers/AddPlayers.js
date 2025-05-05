@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 
-import { PlayersContext } from "../App";
-import { validRound } from "../scripts/swiss/swiss";
-import PairingRules from "../components/PairingRules";
+import { PlayersContext } from "../../App";
+import { validRound } from "../../scripts/swiss/swiss";
+import PairingRules from "../../components/PairingRules";
+import { titles } from "../../scripts/swiss/data";
+import Options from "../../components/Options";
 
 const AddPlayers = () => {
   /*Hooks*/
@@ -17,7 +19,7 @@ const AddPlayers = () => {
     const formData = location.state?.formData;
   const [tournamentDetails, setTournamentDetails] = useState(formData);
 
-  //by default set the minimum number of players to 3
+  //by default set the minimum number of players to 3 for all swiss tournaments
   const [minPlayers, setMinPlayers] = useState(3);
 
   const [player, setPlayer] = useState({
@@ -64,11 +66,15 @@ useEffect(() => {
     if (!player.fideTitle) {
       player.fideTitle = "None";
     }
+    //if a player's section is not selected by default, set it to Open
+    if (player.ageGroups.length === 0) {
+      player.ageGroups = ["Open"];
+    }
     if (
       !player.playerName ||
       !player.playerRating ||
       !player.fideID ||
-      !player.province
+      !player.region
     ) {
       alert("Please fill out all required fields before adding a player.");
       return;
@@ -78,7 +84,7 @@ useEffect(() => {
       playerName: "",
       playerRating: "",
       fideID: "",
-      province: "",
+      region: "",
       points: 0,
       fideTitle: "",
       ageGroups: [],
@@ -89,6 +95,8 @@ useEffect(() => {
 
   const handleRemovePlayer = (index) => {
     let toBeRemoved = players[index];
+    console.log("toBeRemoved", toBeRemoved);
+    
     let arr = players.filter((val) => val !== toBeRemoved);
    
     
@@ -103,9 +111,7 @@ useEffect(() => {
     }
     //validate number of players vs number of rounds
     let validPairings = validRound(players,numberOfRounds);
-    console.log(numberOfRounds,"here");
-    
-    console.log(validPairings,"here");
+  
 
     if(!validPairings){
       alert(`Invalid number of players for the number of rounds. ${numberOfRounds} rounds require a minimum of ${minPlayers} players.`);
@@ -234,18 +240,7 @@ useEffect(() => {
               onChange={handleChange}
               style={inputStyle}
             >
-              <option value="" disabled>
-                Select Title
-              </option>
-              <option value="None">None</option>
-              <option value="GM">GM</option>
-              <option value="IM">IM</option>
-              <option value="FM">FM</option>
-              <option value="CM">CM</option>
-              <option value="WGM">WGM</option>
-              <option value="WIM">WIM</option>
-              <option value="WFM">WFM</option>
-              <option value="WCM">WCM</option>
+             <Options groups={[titles]}/>
             </select>
           </label>
         </div>
@@ -281,7 +276,7 @@ useEffect(() => {
               <th>Name</th>
               <th>Rating</th>
               <th>FIDE ID</th>
-              <th>Province</th>
+              <th>Region</th>
               <th>Categories</th>
               <th>Action</th>
             </tr>
@@ -293,7 +288,7 @@ useEffect(() => {
                 <td>{p.playerName}</td>
                 <td>{p.playerRating}</td>
                 <td>{p.fideID}</td>
-                <td>{p.province}</td>
+                <td>{p.region}</td>
                 <td>{p.ageGroups.join(", ")}</td>
                 <td>
                   <button

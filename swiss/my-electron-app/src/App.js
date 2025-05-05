@@ -6,12 +6,13 @@ import {Routes, Route} from "react-router-dom"
 import Home from './pages/Home';
 
 import NewTournament from './pages/NewTournamment/NewTournament';
-import AddPlayers from './pages/AddPlayers';
-import Pairings from './pages/Pairings';
+import AddPlayers from './pages/AddPlayers/AddPlayers';
+import Pairings from './pages/Pairings/Pairings';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Hub from './pages/Hub';
+import Hub from './pages/Hub/Hub';
 import CloudTournament from './pages/NewTournamment/CloudTournament';
+import PlayerDB from './pages/Hub/PlayerDB';
 
 export const DisplayResultPopup  = createContext()
 export const PlayersContext = createContext()
@@ -36,6 +37,7 @@ const [players,setPlayers] = useState([])
    <Route path='/pairings' element={<Pairings/>} />
    <Route path='/hub' element={<Hub/>} />
    <Route path="/cloud" element={<CloudTournament />} />
+   <Route path="/player-database" element={<PlayerDB />} />
 
 
     </Routes>
