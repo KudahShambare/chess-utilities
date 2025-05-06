@@ -1,4 +1,4 @@
-import { buchholz } from "./tiebreaks";
+import { buchholz,perfomanceRating } from "./tiebreaks";
 
 // pairingAlgorithms.js
 const _ = require("lodash");
@@ -156,7 +156,7 @@ const updatePoints = (players, result, currentBoard) => {
    
 
     switch (result) {
-      case "1-0":
+      case "1-0": //white wins
         whitePlayer.points += 1;
         whitePlayer.roundsPlayed += 1;
         blackPlayer.roundsPlayed += 1;
@@ -167,8 +167,13 @@ const updatePoints = (players, result, currentBoard) => {
             //update player tiebreak 
  blackPlayer = buchholz(blackPlayer)
  whitePlayer = buchholz(whitePlayer)
+
+ //update players perfomance rating
+blackPlayer = perfomanceRating(blackPlayer)
+ whitePlayer = perfomanceRating(whitePlayer) 
         break;
-      case "0-1":
+
+      case "0-1": //blackwins
         blackPlayer.points += 1;
         whitePlayer.roundsPlayed += 1;
         blackPlayer.roundsPlayed += 1;
@@ -178,8 +183,17 @@ const updatePoints = (players, result, currentBoard) => {
             //update player tiebreak 
  blackPlayer = buchholz(blackPlayer)
  whitePlayer = buchholz(whitePlayer)
-        break;
-      case "0.5-0.5":
+
+ //update players perfomance rating
+  blackPlayer = perfomanceRating(blackPlayer)
+  whitePlayer = perfomanceRating(whitePlayer) 
+
+  
+  
+  break;
+
+
+      case "0.5-0.5": //Draw
         blackPlayer.points += 0.5;
         whitePlayer.points += 0.5;
         whitePlayer.roundsPlayed += 1;
@@ -191,18 +205,24 @@ const updatePoints = (players, result, currentBoard) => {
  blackPlayer = buchholz(blackPlayer)
  whitePlayer = buchholz(whitePlayer)
 
+ //update players perfomance rating
+  blackPlayer = perfomanceRating(blackPlayer)
+  whitePlayer = perfomanceRating(whitePlayer)
         break;
-      case "bye":
+
+      case "bye": //bye
         whitePlayer.points += 1;
         whitePlayer.roundsPlayed += 1;
         whitePlayer.opponents.push({"name":"bye"})
              
             //update player tiebreak 
  whitePlayer = buchholz(whitePlayer)
+ whitePlayer = perfomanceRating(whitePlayer)
+        alert("Bye assigned to " + whitePlayer.playerName);
       
         break;
 
-      default:
+      default: //No result
         whitePlayer.roundsPlayed += 1;
         blackPlayer.roundsPlayed += 1;
         whitePlayer.opponents.push(blackPlayer)
@@ -212,6 +232,9 @@ const updatePoints = (players, result, currentBoard) => {
  blackPlayer = buchholz(blackPlayer)
  whitePlayer = buchholz(whitePlayer)
 
+ //update players perfomance rating
+  blackPlayer = perfomanceRating(blackPlayer)
+  whitePlayer = perfomanceRating(whitePlayer)
         alert("No result");
     }
 

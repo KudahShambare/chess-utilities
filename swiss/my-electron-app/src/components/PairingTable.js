@@ -23,7 +23,7 @@ const PairingTable = ({ pairings, heading }) => {
   return (
     <div className="pairing-table-container">
       <h2>{heading}</h2>
-      {display && <GameResult players={allPlayers} currentBoard={currentBoard} />}
+      {display && <GameResult players={allPlayers} currentBoard={currentBoard} />} {/**Display Game Result Only When The Display StATE is rue */}
       <table className="pairing-tables">
         <thead>
           <tr>

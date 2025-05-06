@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Container, Button, Card, Spinner, Modal, Row, Col } from 'react-bootstrap';
+import { Container,  Card, Spinner,  Row, Col } from 'react-bootstrap';
 
 /* Local imports */
 import { firstPairing, otherRoundsPairing } from "../../scripts/swiss/swiss";
@@ -48,7 +48,7 @@ const Pairings = () => {
   };
 
   return (
-    <Container className="mt-4">
+    <Container className="mt-4 pairings-container">
       {/* Header */}
     <TournamentDetails data={tournamentDetails} />
 
